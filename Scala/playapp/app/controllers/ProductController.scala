@@ -28,8 +28,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
   }
 
   def add(): Action[JsValue] = Action(parse.json) { request =>
-    val validationResult = request.body.validate[Product]
-    validationResult.fold(
+    request.body.validate[Product].fold(
       errors => BadRequest(Json.obj("error" -> "Invalid data")),
       product => {
         products = products :+ product
@@ -39,8 +38,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
   }
 
   def update(id: Long): Action[JsValue] = Action(parse.json) { request =>
-    val validationResult = request.body.validate[Product]
-    validationResult.fold(
+    request.body.validate[Product].fold(
       errors => BadRequest(Json.obj("error" -> "Invalid data")),
       updatedProduct => {
         products = products.map(p => if (p.id == id) updatedProduct else p)

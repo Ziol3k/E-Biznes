@@ -27,3 +27,4 @@ GET     /cart/:id           controllers.CartController.getCartItemById(id: Long)
 POST    /cart               controllers.CartController.addCartItem()
 PUT     /cart/:id           controllers.CartController.updateCartItem(id: Long)
 DELETE  /cart/:id           controllers.CartController.deleteCartItem(id: Long)
+

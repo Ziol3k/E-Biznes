@@ -6,7 +6,7 @@ import play.api.libs.json._
 
 case class Category(id: Long, name: String)
 object Category {
-  implicit val categoryFormat = Json.format[Category]
+  implicit val categoryFormat: Format[Category] = Json.format[Category]
 }
 
 @Singleton
@@ -17,18 +17,18 @@ class CategoryController @Inject() (val controllerComponents: ControllerComponen
     Category(3, "Clothing")
   )
 
-  def getAllCategories() = Action {
+  def getAllCategories(): Action[AnyContent] = Action {
     Ok(Json.toJson(categories))
   }
 
-  def getCategoryById(id: Long) = Action {
+  def getCategoryById(id: Long): Action[AnyContent] = Action {
     categories.find(_.id == id) match {
       case Some(category) => Ok(Json.toJson(category))
       case None => NotFound(Json.obj("error" -> "Category not found"))
     }
   }
 
-  def addCategory() = Action(parse.json) { request =>
+  def addCategory(): Action[JsValue] = Action(parse.json) { request =>
     request.body.validate[Category].fold(
       errors => BadRequest(Json.obj("error" -> "Invalid data")),
       category => {
@@ -38,7 +38,7 @@ class CategoryController @Inject() (val controllerComponents: ControllerComponen
     )
   }
 
-  def updateCategory(id: Long) = Action(parse.json) { request =>
+  def updateCategory(id: Long): Action[JsValue] = Action(parse.json) { request =>
     request.body.validate[Category].fold(
       errors => BadRequest(Json.obj("error" -> "Invalid data")),
       updatedCategory => {
@@ -48,7 +48,7 @@ class CategoryController @Inject() (val controllerComponents: ControllerComponen
     )
   }
 
-  def deleteCategory(id: Long) = Action {
+  def deleteCategory(id: Long): Action[AnyContent] = Action {
     categories = categories.filterNot(_.id == id)
     NoContent
   }

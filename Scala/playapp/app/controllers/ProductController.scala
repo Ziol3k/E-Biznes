@@ -6,7 +6,7 @@ import play.api.libs.json._
 
 case class Product(id: Long, name: String, price: Double)
 object Product {
-  implicit val productFormat = Json.format[Product]
+  implicit val productFormat: Format[Product] = Json.format[Product]
 }
 
 @Singleton
@@ -16,19 +16,20 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
     Product(2, "Phone", 1500.0)
   )
 
-  def getAll() = Action {
+  def getAll(): Action[AnyContent] = Action {
     Ok(Json.toJson(products))
   }
 
-  def getById(id: Long) = Action {
+  def getById(id: Long): Action[AnyContent] = Action {
     products.find(_.id == id) match {
       case Some(product) => Ok(Json.toJson(product))
       case None => NotFound(Json.obj("error" -> "Product not found"))
     }
   }
 
-  def add() = Action(parse.json) { request =>
-    request.body.validate[Product].fold(
+  def add(): Action[JsValue] = Action(parse.json) { request =>
+    val validationResult = request.body.validate[Product]
+    validationResult.fold(
       errors => BadRequest(Json.obj("error" -> "Invalid data")),
       product => {
         products = products :+ product
@@ -37,8 +38,9 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
     )
   }
 
-  def update(id: Long) = Action(parse.json) { request =>
-    request.body.validate[Product].fold(
+  def update(id: Long): Action[JsValue] = Action(parse.json) { request =>
+    val validationResult = request.body.validate[Product]
+    validationResult.fold(
       errors => BadRequest(Json.obj("error" -> "Invalid data")),
       updatedProduct => {
         products = products.map(p => if (p.id == id) updatedProduct else p)
@@ -47,7 +49,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
     )
   }
 
-  def delete(id: Long) = Action {
+  def delete(id: Long): Action[AnyContent] = Action {
     products = products.filterNot(_.id == id)
     NoContent
   }

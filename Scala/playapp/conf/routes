@@ -16,14 +16,14 @@ POST    /products           controllers.ProductController.add()
 PUT     /products/:id       controllers.ProductController.update(id: Long)
 DELETE  /products/:id       controllers.ProductController.delete(id: Long)
 
-GET     /categories          controllers.CategoryController.getAllCategories
-GET     /categories/:id      controllers.CategoryController.getCategoryById(id: Long)
-POST    /categories          controllers.CategoryController.addCategory
-PUT     /categories/:id      controllers.CategoryController.updateCategory(id: Long)
-DELETE  /categories/:id      controllers.CategoryController.deleteCategory(id: Long)
+GET     /categories         controllers.CategoryController.getAllCategories()
+GET     /categories/:id     controllers.CategoryController.getCategoryById(id: Long)
+POST    /categories         controllers.CategoryController.addCategory()
+PUT     /categories/:id     controllers.CategoryController.updateCategory(id: Long)
+DELETE  /categories/:id     controllers.CategoryController.deleteCategory(id: Long)
 
-GET     /cart           controllers.CartController.getAllCartItems
-GET     /cart/:id       controllers.CartController.getCartItemById(id: Long)
-POST    /cart           controllers.CartController.addCartItem
-PUT     /cart/:id       controllers.CartController.updateCartItem(id: Long)
-DELETE  /cart/:id       controllers.CartController.deleteCartItem(id: Long)
+GET     /cart               controllers.CartController.getAllCartItems()
+GET     /cart/:id           controllers.CartController.getCartItemById(id: Long)
+POST    /cart               controllers.CartController.addCartItem()
+PUT     /cart/:id           controllers.CartController.updateCartItem(id: Long)
+DELETE  /cart/:id           controllers.CartController.deleteCartItem(id: Long)

@@ -9,6 +9,12 @@ import javax.security.auth.login.LoginException
 
 class DiscordBotListener(private val botToken: String) : ListenerAdapter() {
 
+    private val categories = listOf(
+        Category("1", "Elektronika"),
+        Category("2", "Książki"),
+        Category("3", "Odzież")
+    )
+
     init {
         try {
             JDABuilder.createDefault(botToken)
@@ -28,5 +34,17 @@ class DiscordBotListener(private val botToken: String) : ListenerAdapter() {
         val receivedMessage = message.contentRaw
         println("Otrzymano wiadomość: $receivedMessage")
 
+        val command = receivedMessage.replace(Regex("<@!?\\d+>"), "").trim()
+
+        if (command.equals("!getCategories", true)) {
+            respondWithCategories(event)
+        }
+
+    }
+
+    private fun respondWithCategories(event: MessageReceivedEvent) {
+        val categoryList = categories.joinToString("\n") { "- ${it.name}" }
+        val responseMessage = "Dostępne kategorie:\n$categoryList"
+        event.channel.sendMessage(responseMessage).queue()
     }
 }

@@ -7,7 +7,6 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
@@ -33,25 +32,4 @@ class DiscordBotClient(private val botToken: String, private val channelId: Stri
     }
 }
 
-fun main() {
-    val config = ConfigFactory.load()
-    val botToken = config.getString("bot.token")
-    val channelId = config.getString("bot.channelId")
 
-    if (botToken.isEmpty() || channelId.isEmpty()) {
-        println("Błąd: Token bota lub ID kanału nie zostały ustawione.")
-        return
-    }
-
-    val discordClient = DiscordBotClient(botToken, channelId)
-    val message = "Hello from my bot!"
-
-    runBlocking {
-        try {
-            val response = discordClient.sendMessage(message)
-            println("Wiadomość wysłana: ${response.status}")
-        } catch (e: Exception) {
-            println("Wystąpił błąd: ${e.message}")
-        }
-    }
-}

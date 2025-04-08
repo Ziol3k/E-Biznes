@@ -3,6 +3,7 @@ package bot
 import com.typesafe.config.ConfigFactory
 import kotlinx.coroutines.runBlocking
 
+data class Category(val id: String, val name: String)
 
 fun main() {
     val config = ConfigFactory.load()
@@ -25,4 +26,7 @@ fun main() {
             println("Wystąpił błąd: ${e.message}")
         }
     }
+
+    DiscordBotListener(botToken)
+
 }

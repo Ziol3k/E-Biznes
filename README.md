@@ -4,11 +4,11 @@
 
 ### Opis zadania
 
-1. **Obraz Ubuntu z Pythonem w wersji 3.10**
-2. **Obraz Ubuntu:24.02 z Javą w wersji 8 oraz Kotlinem**
-3. **Do powyższego należy dodać najnowszego Gradle’a oraz paczkę JDBC SQLite w ramach projektu na Gradle (build.gradle)**
-4. **Stworzyć przykład typu HelloWorld oraz uruchomienie aplikacji przez CMD oraz Gradle**
-5. **Dodać konfigurację docker-compose**
+✅ 3.0 Obraz Ubuntu z Pythonem w wersji 3.10
+✅ 3.5 Obraz Ubuntu:24.02 z Javą w wersji 8 oraz Kotlinem
+✅ 4.0 Do powyższego należy dodać najnowszego Gradle’a oraz paczkę JDBC SQLite w ramach projektu na Gradle (build.gradle)
+✅ 4.5 Stworzyć przykład typu HelloWorld oraz uruchomienie aplikacji przez CMD oraz Gradle
+❌ 5.0 Dodać konfigurację docker-compose
 
 ### Link do obrazu
 
@@ -25,5 +25,20 @@ Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/
 ✅ 4.5 [Należy aplikację uruchomić na dockerze (stworzyć obraz) oraz dodać skrypt uruchamiający aplikację via ngrok](https://github.com/Ziol3k/E-Biznes/commit/e798dfd629cdaca3f24b3b108ea63fa245b6ec3c)
 
 ✅ 5.0 [Należy dodać konfigurację CORS dla dwóch hostów dla metod CRUD](https://github.com/Ziol3k/E-Biznes/commit/b6165e169bd2be45d51fa35e1dcad8cd7904c5d0)
+
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/Scala/playapp)
+
+
+## Zadanie 3 Discord Bot
+
+✅ 3.0 [Należy stworzyć aplikację kliencką w Kotlinie we frameworku Ktor, która pozwala na przesyłanie wiadomości na platformę Discord](https://github.com/Ziol3k/E-Biznes/commit/5698c64e8142bafebab8c57422caec1656eca4f6)
+
+✅ 3.5 [Aplikacja jest w stanie odbierać wiadomości użytkowników z platformy Discord skierowane do aplikacji (bota)](https://github.com/Ziol3k/E-Biznes/commit/d755ae6fcb1f343051f150f81233a6a27039dc2e)
+
+✅ 4.0  [Zwróci listę kategorii na określone żądanie użytkownika](https://github.com/Ziol3k/E-Biznes/commit/ec2a50a14b6d08c0256323f3644a7bc0ae05a5ec)
+
+✅ 4.5 [Zwróci listę produktów wg żądanej kategorii](https://github.com/Ziol3k/E-Biznes/commit/a1e2e4a52f8c9f7f33fd55d0fa19b2acfc198f5d)
+
+❌ 5.0 [Aplikacja obsłuży dodatkowo jedną z platform: Slack, Messenger, Webex]
 
 [Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/Scala/playapp)

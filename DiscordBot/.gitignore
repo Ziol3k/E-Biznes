@@ -1,0 +1,16 @@
+# Ignoruj pliki konfiguracyjne z sekretami
+*.conf
+*.log
+*.env
+
+# Ignoruj foldery IDE
+/.idea
+/.vscode
+
+# Ignoruj katalogy build
+/build
+/out
+
+# Ignoruj pliki generowane przez system
+.DS_Store
+Thumbs.db

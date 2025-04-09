@@ -49,3 +49,5 @@ Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/
 
 [Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/DiscordBot/src/main/kotlin)
 
+[Demo](Demos/Demo_zadanie_3.mp4)
+

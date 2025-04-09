@@ -5,10 +5,16 @@
 ### Opis zadania
 
 ✅ 3.0 Obraz Ubuntu z Pythonem w wersji 3.10
+
 ✅ 3.5 Obraz Ubuntu:24.02 z Javą w wersji 8 oraz Kotlinem
+
 ✅ 4.0 Do powyższego należy dodać najnowszego Gradle’a oraz paczkę JDBC SQLite w ramach projektu na Gradle (build.gradle)
+
 ✅ 4.5 Stworzyć przykład typu HelloWorld oraz uruchomienie aplikacji przez CMD oraz Gradle
+
 ❌ 5.0 Dodać konfigurację docker-compose
+
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/docker_project_1/app)
 
 ### Link do obrazu
 
@@ -41,4 +47,5 @@ Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/
 
 ❌ 5.0 [Aplikacja obsłuży dodatkowo jedną z platform: Slack, Messenger, Webex]
 
-[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/Scala/playapp)
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/DiscordBot/src/main/kotlin)
+

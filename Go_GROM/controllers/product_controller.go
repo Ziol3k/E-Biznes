@@ -5,6 +5,8 @@ import (
 	"Go_GROM/models"
 	"net/http"
 
+	"strconv"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -57,11 +59,54 @@ func DeleteProduct(c echo.Context) error {
 	return c.NoContent(http.StatusNoContent)
 }
 
-func GetProductsByCategory(c echo.Context) error {
-	categoryID := c.Param("category_id")
+func GetFilteredProducts(c echo.Context) error {
+	categoryIDStr := c.QueryParam("category_id")
+	minPriceStr := c.QueryParam("min_price")
+	maxPriceStr := c.QueryParam("max_price")
+	sort := c.QueryParam("sort")
+
 	var products []models.Product
-	if err := database.DB.Where("category_id = ?", categoryID).Find(&products).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Brak produktów w tej kategorii"})
+	query := database.DB
+
+	if categoryIDStr != "" {
+		categoryID, err := strconv.Atoi(categoryIDStr)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawne ID"})
+		}
+		query = query.Scopes(models.Product{}.ByCategory(uint(categoryID)))
 	}
+
+	if minPriceStr != "" && maxPriceStr != "" {
+		minPrice, err := strconv.ParseFloat(minPriceStr, 64)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena minimalna"})
+		}
+		maxPrice, err := strconv.ParseFloat(maxPriceStr, 64)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena maksymalna"})
+		}
+		query = query.Scopes(models.Product{}.ByPrice(minPrice, maxPrice))
+	} else if minPriceStr != "" {
+		minPrice, err := strconv.ParseFloat(minPriceStr, 64)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena minimalna"})
+		}
+		query = query.Scopes(models.Product{}.ByPriceMin(minPrice))
+	} else if maxPriceStr != "" {
+		maxPrice, err := strconv.ParseFloat(maxPriceStr, 64)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena maksymalna"})
+		}
+		query = query.Scopes(models.Product{}.ByPriceMax(maxPrice))
+	}
+
+	if sort == "asc" {
+		query = query.Scopes(models.Product{}.ByPriceSort(true))
+	} else if sort == "desc" {
+		query = query.Scopes(models.Product{}.ByPriceSort(false))
+	}
+
+	query.Find(&products)
+
 	return c.JSON(http.StatusOK, products)
 }

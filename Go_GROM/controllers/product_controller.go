@@ -56,3 +56,12 @@ func DeleteProduct(c echo.Context) error {
 	database.DB.Delete(&product)
 	return c.NoContent(http.StatusNoContent)
 }
+
+func GetProductsByCategory(c echo.Context) error {
+	categoryID := c.Param("category_id")
+	var products []models.Product
+	if err := database.DB.Where("category_id = ?", categoryID).Find(&products).Error; err != nil {
+		return c.JSON(http.StatusNotFound, echo.Map{"error": "Brak produktów w tej kategorii"})
+	}
+	return c.JSON(http.StatusOK, products)
+}

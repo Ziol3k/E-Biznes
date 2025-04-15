@@ -52,6 +52,10 @@ Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/
 [Demo](Demos/Demo_zadanie_3.mp4)
 
 
+https://github.com/user-attachments/assets/93548ffa-b33f-4ae0-9f47-5f5dd9ce9558
+
+
+
 ## Zadanie 4 GO + GORM
 ✅ 3.0 [Należy stworzyć aplikację we frameworki echo w j. Go, która będzie miała kontroler Produktów zgodny z CRUD](https://github.com/Ziol3k/E-Biznes/commit/682e9b5da0fd94e9948e023d2cc6563117d8ef23)
 
@@ -66,3 +70,7 @@ Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/
 [Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/Go_GROM)
 
 [Demo](https://github.com/Ziol3k/E-Biznes/blob/master/Demos/Zadanie_4_Demo.mp4)
+
+
+https://github.com/user-attachments/assets/8ef10fc3-dc47-475e-b49b-6494897f2d41
+

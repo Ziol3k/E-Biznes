@@ -15,7 +15,7 @@ func ConnectDB() {
 		panic("Nie udało się połączyć z bazą danych: " + err.Error())
 	}
 
-	db.AutoMigrate(&models.Product{})
+	db.AutoMigrate(&models.Product{}, &models.Cart{})
 	DB = db
 
 }

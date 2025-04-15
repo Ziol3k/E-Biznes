@@ -61,8 +61,8 @@ Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/
 
 ✅ 4.5 [Należy stworzyć model kategorii i dodać relację między kategorią, a produktem](https://github.com/Ziol3k/E-Biznes/commit/f9fe1f73bc53dede97daa8c0791922eb3bcf358b)
 
-❌ 5.0 [pogrupować zapytania w gorm’owe scope'y]()
+✅ 5.0 [pogrupować zapytania w gorm’owe scope'y](https://github.com/Ziol3k/E-Biznes/commit/8e9a64e30a4137597ff5fe3827d6049b59b847bf)
 
 [Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/Go_GROM)
 
-[Demo]()
+[Demo](https://github.com/Ziol3k/E-Biznes/blob/master/Demos/Zadanie_4_Demo.mp4)

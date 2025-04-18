@@ -18,7 +18,7 @@
 
 ### Link do obrazu
 
-Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/ex1-image/tags)
+Link do obrazu na Docker Hub: [Obraz dockerhub](https://hub.docker.com/r/ziol3k/ex1-image)
 
 ## Zadanie 2 Play + Scala
 
@@ -57,6 +57,7 @@ https://github.com/user-attachments/assets/93548ffa-b33f-4ae0-9f47-5f5dd9ce9558
 
 
 ## Zadanie 4 GO + GORM
+
 ✅ 3.0 [Należy stworzyć aplikację we frameworki echo w j. Go, która będzie miała kontroler Produktów zgodny z CRUD](https://github.com/Ziol3k/E-Biznes/commit/682e9b5da0fd94e9948e023d2cc6563117d8ef23)
 
 ✅ 3.5 [Należy stworzyć model Produktów wykorzystując gorm oraz wykorzystać model do obsługi produktów (CRUD) w kontrolerze (zamiast listy)](https://github.com/Ziol3k/E-Biznes/commit/682e9b5da0fd94e9948e023d2cc6563117d8ef23)
@@ -74,3 +75,22 @@ https://github.com/user-attachments/assets/93548ffa-b33f-4ae0-9f47-5f5dd9ce9558
 
 https://github.com/user-attachments/assets/8ef10fc3-dc47-475e-b49b-6494897f2d41
 
+
+## Zadanie 5 Frontend
+
+✅ 3.0 [3.0 W ramach projektu należy stworzyć dwa komponenty: Produkty oraz Płatności; Płatności powinny wysyłać do aplikacji serwerowej dane, a w Produktach powinniśmy pobierać dane o produktach z aplikacji serwerowej](https://github.com/Ziol3k/E-Biznes/commit/4c306deb30fc9a89256c29d74420425efb64bc1c)
+
+✅ 3.5 [Należy dodać Koszyk wraz z widokiem; należy wykorzystać routing](https://github.com/Ziol3k/E-Biznes/commit/66aca90a34766e1e784c121ac0f05b779fea1515)
+
+✅ 4.0  [Dane pomiędzy wszystkimi komponentami powinny być przesyłane za pomocą React hooks](https://github.com/Ziol3k/E-Biznes/commit/66aca90a34766e1e784c121ac0f05b779fea1515)
+
+✅ 4.5 [Należy dodać skrypt uruchamiający aplikację serwerową oraz kliencką na dockerze via docker-compose](https://github.com/Ziol3k/E-Biznes/commit/4c8dec64174026954fe697981d1e54a3fa820679)
+
+✅ 5.0 [Należy wykorzystać axios’a oraz dodać nagłówki pod CORS](https://github.com/Ziol3k/E-Biznes/commit/4c8dec64174026954fe697981d1e54a3fa820679)
+
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/React)
+
+[Demo](Demos/Demo_zadanie_5.mp4)
+
+[Obraz dockerhub klient](https://hub.docker.com/r/ziol3k/react-client)
+[Obraz dockerhub server](https://hub.docker.com/r/ziol3k/react-server)

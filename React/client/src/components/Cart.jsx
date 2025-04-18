@@ -35,6 +35,7 @@ const Cart = () => {
   const handleRemoveProduct = (productId) => {
     axios.delete(`http://localhost:8081/cart/${cartId}/products/${productId}`)
       .then(() => {
+        alert("Produkt został usunięty z koszyka."); 
         axios.get(`http://localhost:8081/cart/${cartId}`)
           .then(response => {
             setCart({

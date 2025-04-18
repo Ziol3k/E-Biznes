@@ -23,11 +23,15 @@ const Payments = ({ totalValue, refreshCart }) => {
       method: method
     })
     .then((res) => {
+      alert("Płatność została pomyślnie zakończona."); 
       const newCartId = res.data.new_cart.id;
       refreshCart(newCartId);
       setCartId(newCartId);
     })
-    .catch(err => console.error("Błąd przy płatności:", err));
+    .catch(err => {
+      console.error("Błąd przy płatności:", err);
+      alert("Wystąpił błąd podczas realizacji płatności."); 
+    });
   };
 
   return (

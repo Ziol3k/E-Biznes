@@ -5,10 +5,16 @@ import (
 	"Go_GROM/database"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
 	e := echo.New()
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:3001"}, // port frontendu
+		AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
+	}))
 
 	database.ConnectDB()
 
@@ -30,6 +36,8 @@ func main() {
 	e.POST("/categories", controllers.CreateCategory)
 	e.PUT("/categories/:id", controllers.UpdateCategory)
 	e.DELETE("/categories/:id", controllers.DeleteCategory)
+
+	e.POST("/payments", controllers.HandlePayment)
 
 	e.Logger.Fatal(e.Start(":8081"))
 

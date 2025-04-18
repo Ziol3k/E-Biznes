@@ -15,7 +15,7 @@ func ConnectDB() {
 		panic("Nie udało się połączyć z bazą danych: " + err.Error())
 	}
 
-	db.AutoMigrate(&models.Product{}, &models.Cart{}, &models.Category{})
+	db.AutoMigrate(&models.Product{}, &models.CartProduct{}, &models.Cart{}, &models.Category{})
 
 	db.FirstOrCreate(&models.Category{}, models.Category{ID: 1, Name: "Elektronika"})
 	db.FirstOrCreate(&models.Category{}, models.Category{ID: 2, Name: "Książki"})

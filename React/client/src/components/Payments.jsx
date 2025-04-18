@@ -1,45 +1,45 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
+import { CartContext } from "../App";
 
-const Payments = () => {
-  const [form, setForm] = useState({
-    cart_id: "",
-    amount: "",
-    method: "card"
-  });
+const Payments = ({ totalValue, refreshCart }) => {
+  const { cartId, setCartId } = useContext(CartContext);
+  const [method, setMethod] = React.useState("card");
 
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setMethod(e.target.value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  
+    if (!cartId) {
+      alert("Koszyk nie istnieje. Spróbuj odświeżyć stronę.");
+      return;
+    }
+
     axios.post("http://localhost:8081/payments", {
-      cart_id: parseInt(form.cart_id),
-      amount: parseFloat(form.amount),
-      method: form.method
+      cart_id: cartId,
+      amount: totalValue,
+      method: method
     })
-    .then(res => {
-      alert("Płatność wysłana!");
+    .then((res) => {
+      const newCartId = res.data.new_cart.id;
+      refreshCart(newCartId);
+      setCartId(newCartId);
     })
-    .catch(err => {
-      console.error("Błąd przy płatności:", err);
-    });
+    .catch(err => console.error("Błąd przy płatności:", err));
   };
-  
 
   return (
     <div>
       <h2>Płatności</h2>
       <form onSubmit={handleSubmit}>
-
-        <select name="method" onChange={handleChange} value={form.method}>
+        <select name="method" onChange={handleChange} value={method}>
           <option value="card">Karta</option>
           <option value="blik">BLIK</option>
           <option value="transfer">Przelew</option>
         </select>
-        <button type="submit">Wyślij płatność</button>
+        <button type="submit">Zapłać</button>
       </form>
     </div>
   );

@@ -1,14 +1,39 @@
-import React from "react";
+import React, { useEffect, createContext, useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Products from "./components/Products";
-import Payments from "./components/Payments";
+import Cart from "./components/Cart";
+import axios from "axios";
+
+export const CartContext = createContext();
 
 function App() {
+  const [cartId, setCartId] = useState(null);
+
+  useEffect(() => {
+    if (!cartId) {
+      axios.post("http://localhost:8081/cart")
+        .then(response => {
+          setCartId(response.data.id);
+        })
+        .catch(error => console.error("Błąd podczas tworzenia koszyka:", error));
+    }
+  }, [cartId]);
+
   return (
-    <div className="App">
-      <h1>Sklep Internetowy</h1>
-      <Products />
-      <Payments />
-    </div>
+    <CartContext.Provider value={{ cartId, setCartId }}>
+      <Router>
+        <div className="App">
+          <h1>Sklep Internetowy</h1>
+          <nav>
+            <Link to="/">Produkty</Link> | <Link to="/cart">Koszyk</Link>
+          </nav>
+          <Routes>
+            <Route path="/" element={<Products />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </div>
+      </Router>
+    </CartContext.Provider>
   );
 }
 

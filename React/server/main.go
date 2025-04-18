@@ -12,7 +12,7 @@ func main() {
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3001"}, // port frontendu
+		AllowOrigins: []string{"http://localhost:3001"},
 		AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
 	}))
 

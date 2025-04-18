@@ -89,8 +89,9 @@ https://github.com/user-attachments/assets/8ef10fc3-dc47-475e-b49b-6494897f2d41
 ✅ 5.0 [Należy wykorzystać axios’a oraz dodać nagłówki pod CORS](https://github.com/Ziol3k/E-Biznes/commit/4c8dec64174026954fe697981d1e54a3fa820679)
 
 [Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/React)
+[Obraz dockerhub klient](https://hub.docker.com/r/ziol3k/react-client)
+[Obraz dockerhub server](https://hub.docker.com/r/ziol3k/react-server)
 
 [Demo](Demos/Demo_zadanie_5.mp4)
 
-[Obraz dockerhub klient](https://hub.docker.com/r/ziol3k/react-client)
-[Obraz dockerhub server](https://hub.docker.com/r/ziol3k/react-server)
+https://github.com/user-attachments/assets/e7e195b5-6a45-455a-824a-08b734f58511

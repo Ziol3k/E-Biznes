@@ -1,3 +1,4 @@
+// Package controllers zawiera handlery HTTP dla zasobów koszyka.
 package controllers
 
 import (
@@ -24,6 +25,7 @@ func updateTotalValue(cart *models.Cart) {
 	database.DB.Save(cart)
 }
 
+// CreateCart tworzy nowy koszyk
 func CreateCart(c echo.Context) error {
 	cart := models.Cart{TotalValue: 0}
 	if err := database.DB.Create(&cart).Error; err != nil {
@@ -32,17 +34,21 @@ func CreateCart(c echo.Context) error {
 	return c.JSON(http.StatusCreated, cart)
 }
 
+// DeleteCart usuwa koszyk na podstawie ID
 func DeleteCart(c echo.Context) error {
 	id := c.Param("id")
 	var cart models.Cart
 	if err := database.DB.First(&cart, id).Error; err != nil {
 		return c.JSON(http.StatusNotFound, echo.Map{"error": cartNotFoundMsg})
 	}
-	database.DB.Model(&cart).Association("Products").Clear()
+	if err := database.DB.Model(&cart).Association("Products").Clear(); err != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"error": "Nie udało się usunąć produktów z koszyka"})
+	}
 	database.DB.Delete(&cart)
 	return c.NoContent(http.StatusNoContent)
 }
 
+// AddProductToCart dodaje produkt do koszyka
 func AddProductToCart(c echo.Context) error {
 	cartID := c.Param("id")
 	var cart models.Cart
@@ -77,6 +83,7 @@ func AddProductToCart(c echo.Context) error {
 	return c.JSON(http.StatusOK, echo.Map{"message": "Produkt dodany do koszyka"})
 }
 
+// RemoveProductFromCart usuwa lub zmniejsza ilość produktu w koszyku
 func RemoveProductFromCart(c echo.Context) error {
 	cartID := c.Param("id")
 	productID := c.Param("productId")
@@ -102,6 +109,7 @@ func RemoveProductFromCart(c echo.Context) error {
 	return c.JSON(http.StatusOK, echo.Map{"message": "Produkt usunięty z koszyka"})
 }
 
+// GetCart pobiera dane koszyka z produktami
 func GetCart(c echo.Context) error {
 	id := c.Param("id")
 	var cart models.Cart

@@ -10,12 +10,14 @@ import (
 
 const categoryNotFoundMsg = "Kategoria nie znaleziona"
 
+// GetCategories zwraca listę wszystkich kategorii.
 func GetCategories(c echo.Context) error {
 	var categories []models.Category
 	database.DB.Find(&categories)
 	return c.JSON(http.StatusOK, categories)
 }
 
+// GetCategory zwraca kategorię po podanym ID.
 func GetCategory(c echo.Context) error {
 	id := c.Param("id")
 	var category models.Category
@@ -25,6 +27,7 @@ func GetCategory(c echo.Context) error {
 	return c.JSON(http.StatusOK, category)
 }
 
+// CreateCategory tworzy nową kategorię.
 func CreateCategory(c echo.Context) error {
 	var category models.Category
 	if err := c.Bind(&category); err != nil {
@@ -34,6 +37,7 @@ func CreateCategory(c echo.Context) error {
 	return c.JSON(http.StatusCreated, category)
 }
 
+// UpdateCategory aktualizuje istniejącą kategorię.
 func UpdateCategory(c echo.Context) error {
 	id := c.Param("id")
 	var category models.Category
@@ -47,6 +51,7 @@ func UpdateCategory(c echo.Context) error {
 	return c.JSON(http.StatusOK, category)
 }
 
+// DeleteCategory usuwa kategorię o podanym ID.
 func DeleteCategory(c echo.Context) error {
 	id := c.Param("id")
 	var category models.Category

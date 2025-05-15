@@ -1,3 +1,4 @@
+// Package main zawiera punkt startowy aplikacji, konfigurację serwera HTTP
 package main
 
 import (

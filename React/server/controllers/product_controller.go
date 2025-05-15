@@ -4,7 +4,6 @@ import (
 	"Go_GROM/database"
 	"Go_GROM/models"
 	"net/http"
-
 	"strconv"
 
 	"github.com/labstack/echo/v4"
@@ -12,12 +11,14 @@ import (
 
 const productNotFoundMsg = "Produkt nie znaleziony"
 
+// GetProducts zwraca listę wszystkich produktów.
 func GetProducts(c echo.Context) error {
 	var products []models.Product
 	database.DB.Find(&products)
 	return c.JSON(http.StatusOK, products)
 }
 
+// GetProduct zwraca pojedynczy produkt po ID.
 func GetProduct(c echo.Context) error {
 	id := c.Param("id")
 	var product models.Product
@@ -27,6 +28,7 @@ func GetProduct(c echo.Context) error {
 	return c.JSON(http.StatusOK, product)
 }
 
+// CreateProduct tworzy nowy produkt.
 func CreateProduct(c echo.Context) error {
 	var product models.Product
 	if err := c.Bind(&product); err != nil {
@@ -36,6 +38,7 @@ func CreateProduct(c echo.Context) error {
 	return c.JSON(http.StatusCreated, product)
 }
 
+// UpdateProduct aktualizuje istniejący produkt.
 func UpdateProduct(c echo.Context) error {
 	id := c.Param("id")
 	var product models.Product
@@ -51,6 +54,7 @@ func UpdateProduct(c echo.Context) error {
 	return c.JSON(http.StatusOK, product)
 }
 
+// DeleteProduct usuwa produkt.
 func DeleteProduct(c echo.Context) error {
 	id := c.Param("id")
 	var product models.Product
@@ -61,6 +65,7 @@ func DeleteProduct(c echo.Context) error {
 	return c.NoContent(http.StatusNoContent)
 }
 
+// parseFloatParam parsuje parametr zapytania jako float64.
 func parseFloatParam(c echo.Context, param string, errorMsg string) (float64, error) {
 	valStr := c.QueryParam(param)
 	if valStr == "" {
@@ -73,6 +78,7 @@ func parseFloatParam(c echo.Context, param string, errorMsg string) (float64, er
 	return val, nil
 }
 
+// parseIntParam parsuje parametr zapytania jako int.
 func parseIntParam(c echo.Context, param string, errorMsg string) (int, error) {
 	valStr := c.QueryParam(param)
 	if valStr == "" {
@@ -85,6 +91,7 @@ func parseIntParam(c echo.Context, param string, errorMsg string) (int, error) {
 	return val, nil
 }
 
+// GetFilteredProducts zwraca produkty filtrowane według parametrów zapytania.
 func GetFilteredProducts(c echo.Context) error {
 	categoryID, err := parseIntParam(c, "category_id", "Niepoprawne ID")
 	if err != nil {
@@ -107,20 +114,27 @@ func GetFilteredProducts(c echo.Context) error {
 	query := database.DB
 
 	if categoryID != 0 {
-		query = query.Scopes(models.Product{}.ByCategory(uint(categoryID)))
+		// Bezpieczna konwersja categoryID do uint, unikamy overflow
+		var catID uint
+		if categoryID > 0 {
+			catID = uint(categoryID)
+		}
+		query = query.Scopes(models.Product{}.ByCategory(catID))
 	}
 
-	if minPrice != 0 && maxPrice != 0 {
+	switch {
+	case minPrice != 0 && maxPrice != 0:
 		query = query.Scopes(models.Product{}.ByPrice(minPrice, maxPrice))
-	} else if minPrice != 0 {
+	case minPrice != 0:
 		query = query.Scopes(models.Product{}.ByPriceMin(minPrice))
-	} else if maxPrice != 0 {
+	case maxPrice != 0:
 		query = query.Scopes(models.Product{}.ByPriceMax(maxPrice))
 	}
 
-	if sort == "asc" {
+	switch sort {
+	case "asc":
 		query = query.Scopes(models.Product{}.ByPriceSort(true))
-	} else if sort == "desc" {
+	case "desc":
 		query = query.Scopes(models.Product{}.ByPriceSort(false))
 	}
 

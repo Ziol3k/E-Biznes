@@ -10,12 +10,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Payment reprezentuje dane płatności przesyłane z klienta.
 type Payment struct {
 	CartID uint    `json:"cart_id"`
 	Amount float64 `json:"amount"`
 	Method string  `json:"method"`
 }
 
+// HandlePayment obsługuje proces płatności dla koszyka.
 func HandlePayment(c echo.Context) error {
 	var payment Payment
 

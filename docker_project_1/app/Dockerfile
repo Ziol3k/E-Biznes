@@ -6,12 +6,11 @@ RUN apt-get update && \
         openjdk-8-jdk \
         python3-pip \
         python3.10 \
-        unzip \
-        wget && \
-    wget https://github.com/JetBrains/kotlin/releases/download/v1.8.10/kotlin-compiler-1.8.10.zip && \
+        unzip && \
+    curl -fSL https://github.com/JetBrains/kotlin/releases/download/v1.8.10/kotlin-compiler-1.8.10.zip -o kotlin-compiler-1.8.10.zip && \
     unzip kotlin-compiler-1.8.10.zip -d /usr/local/ && \
     rm kotlin-compiler-1.8.10.zip && \
-    wget https://services.gradle.org/distributions/gradle-7.5-bin.zip && \
+    curl -fSL https://services.gradle.org/distributions/gradle-7.5-bin.zip -o gradle-7.5-bin.zip && \
     unzip gradle-7.5-bin.zip -d /opt/gradle && \
     rm gradle-7.5-bin.zip && \
     ln -s /opt/gradle/gradle-7.5/bin/gradle /usr/bin/gradle && \

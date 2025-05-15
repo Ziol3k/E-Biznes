@@ -117,6 +117,9 @@ https://github.com/user-attachments/assets/e7e195b5-6a45-455a-824a-08b734f58511
 [Demo](Demos/Demo_zadanie_6.mp4)
 
 
+https://github.com/user-attachments/assets/f3c7782e-ba2e-4ed4-a79f-657f52092939
+
+
 ## Zadanie 7 Sonar
 ❗❗❗ W tym zadaniu poprawiłem całe repozytorium E-Biznes, Sonar pokazuje duże potworzenie kodu, które zostawiam ze względu na rozdzielenie kodu na posszczególne zadania - tak żeby nie było wątpliwości kiedy je wykonywałem ❗❗❗
 
@@ -148,6 +151,7 @@ Ze względu na poprawianie błędów etapami podaję pozostaałe commity tutaj:
 [Demo](Demos/Demo_zadanie_7.mp4)
 
 
+https://github.com/user-attachments/assets/92133d8c-ddf8-4fcb-988f-b5530ebe1efd
 
 
 ## Zadanie 8 Oauth2

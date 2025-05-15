@@ -98,3 +98,70 @@ https://github.com/user-attachments/assets/8ef10fc3-dc47-475e-b49b-6494897f2d41
 
 
 https://github.com/user-attachments/assets/e7e195b5-6a45-455a-824a-08b734f58511
+
+
+## Zadanie 6 Testy
+
+✅ 3.0 [3.0 Należy stworzyć 20 przypadków testowych w CypressJS lub Selenium (Kotlin, Python, Java, JS, Go, Scala)](https://github.com/Ziol3k/E-Biznes/commit/7a93896fc03c7d15bb964c5ea0a43a623e07a120)
+
+✅ 3.5 [Należy rozszerzyć testy funkcjonalne, aby zawierały minimum 50 asercji](https://github.com/Ziol3k/E-Biznes/commit/7a93896fc03c7d15bb964c5ea0a43a623e07a120)
+
+❌ 4.0  [Należy stworzyć testy jednostkowe do wybranego wcześniejszego projektu z minimum 50 asercjami]()
+
+❌ 4.5 [Należy dodać testy API, należy pokryć wszystkie endpointy z minimum jednym scenariuszem negatywnym per endpoint]()
+
+❌ 5.0 [Należy uruchomić testy funkcjonalne na Browserstacku]()
+
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/tests)
+
+[Demo](Demos/Demo_zadanie_6.mp4)
+
+
+## Zadanie 7 Sonar
+❗❗❗ W tym zadaniu poprawiłem całe repozytorium E-Biznes, Sonar pokazuje duże potworzenie kodu, które zostawiam ze względu na rozdzielenie kodu na posszczególne zadania - tak żeby nie było wątpliwości kiedy je wykonywałem ❗❗❗
+
+Do polecenia poprawiłem kod serweera i klienta z zadania 5 - link do kodu poniżej
+
+✅ 3.0 [Należy dodać litera do odpowiedniego kodu aplikacji serwerowej w hookach gita](https://github.com/Ziol3k/E-Biznes/commit/a84fb54511591c708747e3e283a4deee33579245)
+    [Commit 2](https://github.com/Ziol3k/E-Biznes/commit/9b0f834624493c8c7079a96bbed1d993c5a3672e)
+
+✅ 3.5 [Należy wyeliminować wszystkie bugi w kodzie w Sonarze (kod aplikacji serwerowej](https://github.com/Ziol3k/E-Biznes/commit/5c59c48c06dffaee9d1487c9f857b728e78112b2)
+
+✅ 4.0  [Należy wyeliminować wszystkie zapaszki w kodzie w Sonarze (kod aplikacji serwerowej)](https://github.com/Ziol3k/E-Biznes/commit/5c59c48c06dffaee9d1487c9f857b728e78112b2)
+
+✅ 4.5 [Należy wyeliminować wszystkie podatności oraz błędy bezpieczeństwa w kodzie w Sonarze (kod aplikacji serwerowej)](https://github.com/Ziol3k/E-Biznes/commit/5c59c48c06dffaee9d1487c9f857b728e78112b2)
+
+✅ 5.0 [Należy wyeliminować wszystkie błędy oraz zapaszki w kodzie aplikacji klienckiej](https://github.com/Ziol3k/E-Biznes/commit/5c59c48c06dffaee9d1487c9f857b728e78112b2)
+
+Ze względu na poprawianie błędów etapami podaję pozostaałe commity tutaj:
+
+[commit 1](https://github.com/Ziol3k/E-Biznes/commit/e6f1acaeb52a481dc8d1df0099aac6a7bce5a39f)
+
+[commit 2](https://github.com/Ziol3k/E-Biznes/commit/d734ed8ea485c784f229ca4463eca78b79532b82)
+
+[commit 3](https://github.com/Ziol3k/E-Biznes/commit/44d14d60e124ea89b5a87c5dc731dd399696f77b)
+
+[Kod serwera:](https://github.com/Ziol3k/E-Biznes/tree/master/React/server)
+
+[Kod klienta:](https://github.com/Ziol3k/E-Biznes/tree/master/React/client)
+
+[Demo](Demos/Demo_zadanie_7.mp4)
+
+
+
+
+## Zadanie 8 Oauth2
+
+❌ 3.0 [logowanie przez aplikację serwerową (bez Oauth2)]()
+
+❌ 3.5 [rejestracja przez aplikację serwerową (bez Oauth2)]()
+
+❌ 4.0  [logowanie via Google OAuth2]()
+
+❌ 4.5 [logowanie via Facebook lub Github OAuth2]()
+
+❌ 5.0 [zapisywanie danych logowania OAuth2 po stronie serwera]()
+
+[Kod:]()
+
+[Demo]()

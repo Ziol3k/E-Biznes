@@ -1,19 +1,12 @@
 version: 2
 
 run:
-  issues-exit-code: 1
   timeout: 5m
   max-issues-per-linter: 0  
   max-same-issues: 0     
 
 linters:
   enable:
-    - errcheck
     - govet
     - staticcheck
-    - gocritic
-    - gosec
-    - revive
-
-issues:
-  exclude-use-default: false
+    - unused

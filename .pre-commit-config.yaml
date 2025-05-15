@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v2.1.6
+    hooks:
+      - id: golangci-lint
+        name: golangci-lint (React/server)
+        language: system
+        entry: ./scripts/run_golangci_lint.sh
+        files: ^React/server/.*\.go$

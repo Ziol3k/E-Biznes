@@ -15,8 +15,9 @@ RUN apt-get update && \
     unzip gradle-7.5-bin.zip -d /opt/gradle && \
     rm gradle-7.5-bin.zip && \
     ln -s /opt/gradle/gradle-7.5/bin/gradle /usr/bin/gradle && \
-    apt-get clean
-
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+    
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV KOTLIN_HOME=/usr/local/kotlinc
 ENV PATH="${JAVA_HOME}/bin:${KOTLIN_HOME}/bin:/opt/gradle/gradle-7.5/bin:${PATH}"

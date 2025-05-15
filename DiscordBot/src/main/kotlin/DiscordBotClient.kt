@@ -1,6 +1,5 @@
 package bot
 
-import com.typesafe.config.ConfigFactory
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*

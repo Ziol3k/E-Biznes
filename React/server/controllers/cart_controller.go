@@ -8,6 +8,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+const cartNotFoundMsg = "Koszyk nie znaleziony"
+
 func updateTotalValue(cart *models.Cart) {
 	var cartProducts []models.CartProduct
 	database.DB.Where("cart_id = ?", cart.ID).Find(&cartProducts)
@@ -34,7 +36,7 @@ func DeleteCart(c echo.Context) error {
 	id := c.Param("id")
 	var cart models.Cart
 	if err := database.DB.First(&cart, id).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Koszyk nie znaleziony"})
+		return c.JSON(http.StatusNotFound, echo.Map{"error": cartNotFoundMsg})
 	}
 	database.DB.Model(&cart).Association("Products").Clear()
 	database.DB.Delete(&cart)
@@ -45,7 +47,7 @@ func AddProductToCart(c echo.Context) error {
 	cartID := c.Param("id")
 	var cart models.Cart
 	if err := database.DB.First(&cart, cartID).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Koszyk nie znaleziony"})
+		return c.JSON(http.StatusNotFound, echo.Map{"error": cartNotFoundMsg})
 	}
 
 	var body struct {
@@ -93,7 +95,7 @@ func RemoveProductFromCart(c echo.Context) error {
 
 	var cart models.Cart
 	if err := database.DB.First(&cart, cartID).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Koszyk nie znaleziony"})
+		return c.JSON(http.StatusNotFound, echo.Map{"error": cartNotFoundMsg})
 	}
 	updateTotalValue(&cart)
 
@@ -104,7 +106,7 @@ func GetCart(c echo.Context) error {
 	id := c.Param("id")
 	var cart models.Cart
 	if err := database.DB.Preload("Products.Product").First(&cart, id).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Koszyk nie znaleziony"})
+		return c.JSON(http.StatusNotFound, echo.Map{"error": cartNotFoundMsg})
 	}
 
 	updateTotalValue(&cart)

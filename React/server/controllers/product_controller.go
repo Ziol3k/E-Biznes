@@ -10,6 +10,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+const productNotFoundMsg = "Produkt nie znaleziony"
+
 func GetProducts(c echo.Context) error {
 	var products []models.Product
 	database.DB.Find(&products)
@@ -20,7 +22,7 @@ func GetProduct(c echo.Context) error {
 	id := c.Param("id")
 	var product models.Product
 	if err := database.DB.First(&product, id).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Produkt nie znaleziony"})
+		return c.JSON(http.StatusNotFound, echo.Map{"error": productNotFoundMsg})
 	}
 	return c.JSON(http.StatusOK, product)
 }
@@ -38,7 +40,7 @@ func UpdateProduct(c echo.Context) error {
 	id := c.Param("id")
 	var product models.Product
 	if err := database.DB.First(&product, id).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Produkt nie znaleziony"})
+		return c.JSON(http.StatusNotFound, echo.Map{"error": productNotFoundMsg})
 	}
 
 	if err := c.Bind(&product); err != nil {
@@ -53,50 +55,66 @@ func DeleteProduct(c echo.Context) error {
 	id := c.Param("id")
 	var product models.Product
 	if err := database.DB.First(&product, id).Error; err != nil {
-		return c.JSON(http.StatusNotFound, echo.Map{"error": "Produkt nie znaleziony"})
+		return c.JSON(http.StatusNotFound, echo.Map{"error": productNotFoundMsg})
 	}
 	database.DB.Delete(&product)
 	return c.NoContent(http.StatusNoContent)
 }
 
+func parseFloatParam(c echo.Context, param string, errorMsg string) (float64, error) {
+	valStr := c.QueryParam(param)
+	if valStr == "" {
+		return 0, nil
+	}
+	val, err := strconv.ParseFloat(valStr, 64)
+	if err != nil {
+		return 0, echo.NewHTTPError(http.StatusBadRequest, errorMsg)
+	}
+	return val, nil
+}
+
+func parseIntParam(c echo.Context, param string, errorMsg string) (int, error) {
+	valStr := c.QueryParam(param)
+	if valStr == "" {
+		return 0, nil
+	}
+	val, err := strconv.Atoi(valStr)
+	if err != nil {
+		return 0, echo.NewHTTPError(http.StatusBadRequest, errorMsg)
+	}
+	return val, nil
+}
+
 func GetFilteredProducts(c echo.Context) error {
-	categoryIDStr := c.QueryParam("category_id")
-	minPriceStr := c.QueryParam("min_price")
-	maxPriceStr := c.QueryParam("max_price")
+	categoryID, err := parseIntParam(c, "category_id", "Niepoprawne ID")
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"error": err.Error()})
+	}
+
+	minPrice, err := parseFloatParam(c, "min_price", "Niepoprawna cena minimalna")
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"error": err.Error()})
+	}
+
+	maxPrice, err := parseFloatParam(c, "max_price", "Niepoprawna cena maksymalna")
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"error": err.Error()})
+	}
+
 	sort := c.QueryParam("sort")
 
 	var products []models.Product
 	query := database.DB
 
-	if categoryIDStr != "" {
-		categoryID, err := strconv.Atoi(categoryIDStr)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawne ID"})
-		}
+	if categoryID != 0 {
 		query = query.Scopes(models.Product{}.ByCategory(uint(categoryID)))
 	}
 
-	if minPriceStr != "" && maxPriceStr != "" {
-		minPrice, err := strconv.ParseFloat(minPriceStr, 64)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena minimalna"})
-		}
-		maxPrice, err := strconv.ParseFloat(maxPriceStr, 64)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena maksymalna"})
-		}
+	if minPrice != 0 && maxPrice != 0 {
 		query = query.Scopes(models.Product{}.ByPrice(minPrice, maxPrice))
-	} else if minPriceStr != "" {
-		minPrice, err := strconv.ParseFloat(minPriceStr, 64)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena minimalna"})
-		}
+	} else if minPrice != 0 {
 		query = query.Scopes(models.Product{}.ByPriceMin(minPrice))
-	} else if maxPriceStr != "" {
-		maxPrice, err := strconv.ParseFloat(maxPriceStr, 64)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, echo.Map{"error": "Niepoprawna cena maksymalna"})
-		}
+	} else if maxPrice != 0 {
 		query = query.Scopes(models.Product{}.ByPriceMax(maxPrice))
 	}
 

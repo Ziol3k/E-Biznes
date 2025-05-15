@@ -1,4 +1,4 @@
-import React, { useEffect, createContext, useState } from "react";
+import React, { useEffect, createContext, useState, useMemo } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Products from "./components/Products";
 import Cart from "./components/Cart";
@@ -19,8 +19,10 @@ function App() {
     }
   }, [cartId]);
 
+  const contextValue = useMemo(() => ({ cartId, setCartId }), [cartId, setCartId]);
+
   return (
-    <CartContext.Provider value={{ cartId, setCartId }}>
+    <CartContext.Provider value={contextValue}>
       <Router>
         <div className="App">
           <h1>Sklep Internetowy</h1>

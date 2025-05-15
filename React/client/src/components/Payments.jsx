@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import { CartContext } from "../App";
 
@@ -47,6 +48,11 @@ const Payments = ({ totalValue, refreshCart }) => {
       </form>
     </div>
   );
+};
+
+Payments.propTypes = {
+  totalValue: PropTypes.number.isRequired,
+  refreshCart: PropTypes.func.isRequired,
 };
 
 export default Payments;

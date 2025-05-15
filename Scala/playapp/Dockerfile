@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 LABEL authors="jan_z"
 
 RUN apt-get update && \

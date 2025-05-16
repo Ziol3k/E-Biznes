@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
+import Profile from './Profile';
+import { AuthProvider, AuthContext } from './AuthContext';
+
+function Navigation() {
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  return (
+    <div className="nav">
+      <h1>OAuth App</h1>
+      {!isAuthenticated ? (
+        <>
+          <Link to="/register">Rejestracja</Link> |{' '}
+          <Link to="/login">Logowanie</Link>
+        </>
+      ) : (
+        <>
+          <Link to="/profile">Profil</Link> |{' '}
+          <button onClick={logout}>Wyloguj</button>
+        </>
+      )}
+    </div>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Navigation />
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

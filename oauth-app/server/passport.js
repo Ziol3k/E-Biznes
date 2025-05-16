@@ -19,6 +19,8 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: '/api/auth/google/callback',
+    prompt: 'consent',
+    accessType: 'offline'
 },
     async (accessToken, refreshToken, profile, done) => {
         try {
@@ -32,16 +34,17 @@ passport.use(new GoogleStrategy({
             });
 
             if (user) {
-                if (!user.googleId) {
-                    user.googleId = profile.id;
-                    await user.save();
-                }
+                user.googleAccessToken = accessToken;
+                user.googleRefreshToken = refreshToken;
+                await user.save();
                 return done(null, user);
             }
 
             const newUser = await User.create({
                 email: profile.emails[0].value,
                 googleId: profile.id,
+                googleAccessToken: accessToken,
+                googleRefreshToken: refreshToken
             });
 
             done(null, newUser);
@@ -56,6 +59,8 @@ passport.use(new GitHubStrategy({
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: '/api/auth/github/callback',
     scope: ['user:email'],
+    prompt: 'consent',
+    authorizationURL: 'https://github.com/login/oauth/authorize?prompt=consent'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         const { data: emails } = await axios.get('https://api.github.com/user/emails', {
@@ -73,16 +78,17 @@ passport.use(new GitHubStrategy({
         });
 
         if (user) {
-            if (!user.githubId) {
-                user.githubId = profile.id;
-                await user.save();
-            }
+            user.githubAccessToken = accessToken;
+            user.githubRefreshToken = refreshToken;
+            await user.save();
             return done(null, user);
         }
 
         const newUser = await User.create({
             email: primaryEmail?.email || null,
             githubId: profile.id,
+            githubAccessToken: accessToken,
+            githubRefreshToken: refreshToken
         });
 
         done(null, newUser);

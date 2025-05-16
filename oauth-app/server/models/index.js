@@ -18,11 +18,26 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    googleAccessToken: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    googleRefreshToken: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
     githubId: {
         type: DataTypes.STRING,
         allowNull: true,
+    },
+    githubAccessToken: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    githubRefreshToken: {
+        type: DataTypes.TEXT,
+        allowNull: true
     }
-
 });
 
 module.exports = { sequelize, User };

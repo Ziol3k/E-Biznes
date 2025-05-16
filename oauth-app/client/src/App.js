@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import Profile from './Profile';
@@ -33,10 +33,23 @@ function App() {
       <BrowserRouter>
         <Navigation />
         <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/oauth-success" element={<OAuthSuccess />} />
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route
+            path="/register"
+            element={<Register />}
+          />
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          <Route
+            path="/profile"
+            element={<Profile />}
+          />
+          <Route
+            path="/oauth-success"
+            element={<OAuthSuccess />}
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

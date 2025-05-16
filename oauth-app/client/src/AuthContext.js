@@ -8,13 +8,14 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        try {
-            if (token) {
+        if (token) {
+            try {
                 const decoded = jwtDecode(token);
-                if (decoded?.id) setIsAuthenticated(true);
+                setIsAuthenticated(!!decoded?.id);
+            } catch (err) {
+                console.error("Invalid token:", err);
+                logout();
             }
-        } catch {
-            setIsAuthenticated(false);
         }
     }, []);
 

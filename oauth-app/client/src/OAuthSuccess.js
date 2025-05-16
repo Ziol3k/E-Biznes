@@ -3,23 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
 function OAuthSuccess() {
-    const { login } = useContext(AuthContext);
+    const { login, isAuthenticated } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        console.log('Odebrany token w OAuthSuccess:', token);
-        if (token) {
+        const encodedToken = urlParams.get('token');
+
+        if (encodedToken) {
+            const token = decodeURIComponent(encodedToken);
             login(token);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }, [login]);
+
+    useEffect(() => {
+        if (isAuthenticated) {
             navigate('/profile');
         } else {
-            navigate('/');
+            navigate('/login');
         }
-    }, [login, navigate]);
+    }, [isAuthenticated, navigate]);
 
-
-    return <p>Logowanie przez Google...</p>;
+    return <p>Przetwarzanie logowania...</p>;
 }
 
 export default OAuthSuccess;

@@ -49,12 +49,22 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/callback', passport.authenticate('google', {
     failureRedirect: `${process.env.CLIENT_URL}/login`,
 }), (req, res) => {
-    console.log('Zalogowany user:', req.user);
     const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
-    console.log('Wygenerowany token:', token);
-    res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`);
+    const encodedToken = encodeURIComponent(token);
+    res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${encodedToken}`);
 });
 
+router.get('/github', passport.authenticate('github', {
+    scope: ['user:email'],
+    prompt: 'consent'
+}));
 
+router.get('/github/callback', passport.authenticate('github', {
+    failureRedirect: `${process.env.CLIENT_URL}/login`,
+}), (req, res) => {
+    const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
+    const encodedToken = encodeURIComponent(token);
+    res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${encodedToken}`);
+});
 
 module.exports = router;

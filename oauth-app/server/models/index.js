@@ -8,16 +8,21 @@ const User = sequelize.define('User', {
     email: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: true, // bo użytkownik Google może nie mieć emaila w bazie
+        allowNull: true,
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: true, // bo użytkownik Google nie ma hasła
+        allowNull: true,
     },
     googleId: {
         type: DataTypes.STRING,
         allowNull: true,
+    },
+    githubId: {
+        type: DataTypes.STRING,
+        allowNull: true,
     }
+
 });
 
 module.exports = { sequelize, User };

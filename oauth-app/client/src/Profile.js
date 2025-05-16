@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 function Profile() {
     const [email, setEmail] = useState('');
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated) {
+        const token = localStorage.getItem('token');
+        if (!isAuthenticated && !token) {
             navigate('/login');
             return;
         }
@@ -22,11 +23,12 @@ function Profile() {
                 });
                 setEmail(res.data.email);
             } catch {
-                setEmail('Błąd autoryzacji.');
+                logout();
+                navigate('/login');
             }
         };
         fetchProfile();
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, navigate, logout]);
 
     return (
         <div className="form-container">

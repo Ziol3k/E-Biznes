@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 import './Form.css';
 
 function Register() {
+    const { isAuthenticated } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/profile');
+        }
+    }, [isAuthenticated, navigate]);
 
     const handleRegister = async () => {
         try {

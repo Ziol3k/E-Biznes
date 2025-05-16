@@ -1,15 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import './Form.css';
 
 function Login() {
+    const { isAuthenticated, login } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
-    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/profile');
+        }
+    }, [isAuthenticated, navigate]);
 
     const handleLogin = async () => {
         try {
@@ -28,7 +34,7 @@ function Login() {
             <input type="password" placeholder="Hasło" onChange={e => setPassword(e.target.value)} />
             <button onClick={handleLogin}>Zaloguj</button>
             <a className="google-btn" href="http://localhost:5000/api/auth/google">Zaloguj przez Google</a>
-
+            <a className="github-btn" href="http://localhost:5000/api/auth/github">Zaloguj przez GitHub</a>
             <p className="message">{msg}</p>
         </div>
     );

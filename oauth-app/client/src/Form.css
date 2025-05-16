@@ -17,7 +17,12 @@ input {
   border-radius: 5px;
 }
 
+.login-buttons {
+  display: flex;
+}
+
 button,
+.github-btn,
 .google-btn {
   margin: 20px;
   padding: 10px 20px;

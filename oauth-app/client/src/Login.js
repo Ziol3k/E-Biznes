@@ -33,8 +33,10 @@ function Login() {
             <input placeholder="Email" onChange={e => setEmail(e.target.value)} />
             <input type="password" placeholder="Hasło" onChange={e => setPassword(e.target.value)} />
             <button onClick={handleLogin}>Zaloguj</button>
-            <a className="google-btn" href="http://localhost:5000/api/auth/google">Zaloguj przez Google</a>
-            <a className="github-btn" href="http://localhost:5000/api/auth/github">Zaloguj przez GitHub</a>
+            <div className="login-buttons">
+                <a className="google-btn" href="http://localhost:5000/api/auth/google">Zaloguj przez Google</a>
+                <a className="github-btn" href="http://localhost:5000/api/auth/github">Zaloguj przez GitHub</a>
+            </div>
             <p className="message">{msg}</p>
         </div>
     );

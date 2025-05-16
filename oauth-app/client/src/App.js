@@ -4,6 +4,7 @@ import Register from './Register';
 import Login from './Login';
 import Profile from './Profile';
 import { AuthProvider, AuthContext } from './AuthContext';
+import OAuthSuccess from './OAuthSuccess';
 
 function Navigation() {
   const { isAuthenticated, logout } = useContext(AuthContext);
@@ -35,6 +36,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/oauth-success" element={<OAuthSuccess />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

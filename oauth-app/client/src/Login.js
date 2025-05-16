@@ -14,7 +14,7 @@ function Login() {
     const handleLogin = async () => {
         try {
             const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-            login(res.data.token); // Ustaw token i stan zalogowania
+            login(res.data.token);
             navigate('/profile');
         } catch (err) {
             setMsg('Nieprawidłowy email lub hasło.');
@@ -27,6 +27,8 @@ function Login() {
             <input placeholder="Email" onChange={e => setEmail(e.target.value)} />
             <input type="password" placeholder="Hasło" onChange={e => setPassword(e.target.value)} />
             <button onClick={handleLogin}>Zaloguj</button>
+            <a className="google-btn" href="http://localhost:5000/api/auth/google">Zaloguj przez Google</a>
+
             <p className="message">{msg}</p>
         </div>
     );

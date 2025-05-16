@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const { User } = require('../models');
 
 router.post('/register', async (req, res) => {
@@ -39,6 +40,21 @@ router.get('/me', async (req, res) => {
         res.sendStatus(401);
     }
 });
+
+router.get('/google', passport.authenticate('google', {
+    scope: ['profile', 'email'],
+    prompt: 'consent'
+}));
+
+router.get('/google/callback', passport.authenticate('google', {
+    failureRedirect: `${process.env.CLIENT_URL}/login`,
+}), (req, res) => {
+    console.log('Zalogowany user:', req.user);
+    const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
+    console.log('Wygenerowany token:', token);
+    res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`);
+});
+
 
 
 module.exports = router;

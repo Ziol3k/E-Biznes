@@ -17,9 +17,11 @@ input {
   border-radius: 5px;
 }
 
-button {
-  margin-top: 1rem;
+button,
+.google-btn {
+  margin: 20px;
   padding: 10px 20px;
+  height: 40px;
   background-color: #0077ff;
   color: white;
   border: none;

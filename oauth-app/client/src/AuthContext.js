@@ -19,9 +19,11 @@ export function AuthProvider({ children }) {
     }, []);
 
     const login = (token) => {
+        console.log('Logowanie, token:', token);
         localStorage.setItem('token', token);
         setIsAuthenticated(true);
     };
+
 
     const logout = () => {
         localStorage.removeItem('token');

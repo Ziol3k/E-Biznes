@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Sklepu – GPT4All</title>
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+    .chat-container {
+      max-width: 480px;
+      margin: 40px auto 20px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+      padding: 0;
+      display: flex; flex-direction: column; min-height: 560px;
+      overflow: hidden;
+    }
+    .header {
+      background: #5f27cd;
+      color: white;
+      padding: 22px 28px;
+      font-size: 1.4em;
+      font-weight: 600;
+      border-radius: 16px 16px 0 0;
+      letter-spacing: 1px;
+    }
+    .chat-area {
+      flex: 1;
+      padding: 18px 28px 8px 28px;
+      overflow-y: auto;
+      font-size: 1em;
+    }
+
+    .footer {
+      padding: 18px 28px;
+      background: #fafbff;
+      border-radius: 0 0 16px 16px;
+      border-top: 1px solid #ececec;
+      display: flex; gap: 10px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #dadada;
+      font-size: 1em;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus {
+      border: 2px solid #5f27cd;
+    }
+    button {
+      background: #5f27cd;
+      color: #fff;
+      border: none;
+      padding: 0 22px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #3b187b;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">
+      Chatbot Sklepu – GPT4All
+    </div>
+    <div id="chat" class="chat-area">
+    </div>
+    <div class="footer">
+        <label for="input"></label><input id="input" type="text" placeholder="Napisz wiadomość..." autocomplete="off"
+                                          onkeydown="if(event.key==='Enter') sendMsg();">
+      <button onclick="sendMsg()">Wyślij</button>
+    </div>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const input = document.getElementById('input');
+
+    function appendMsg(who, text) {
+      let bubble = document.createElement('div');
+      bubble.className = 'chat-bubble ' + who;
+      bubble.textContent = text;
+      chat.appendChild(bubble);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function sendMsg() {
+      let msg = input.value.trim();
+      if (!msg) return;
+      appendMsg('user', msg);
+      input.value = '';
+      input.focus();
+
+      let loading = document.createElement('div');
+      loading.className = 'loading';
+      loading.textContent = 'Bot pisze...';
+      chat.appendChild(loading);
+      chat.scrollTop = chat.scrollHeight;
+
+      try {
+        let res = await fetch('http://127.0.0.1:5000/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg })
+        });
+        let data = await res.json();
+        chat.removeChild(loading);
+        if (data.response) {
+          appendMsg('bot', data.response.trim());
+        } else {
+          appendMsg('bot', '[Błąd]: ' + (data.error || 'Nieznany błąd'));
+        }
+      } catch (e) {
+        chat.removeChild(loading);
+        appendMsg('bot', '[Błąd połączenia z backendem]');
+      }
+    }
+  </script>
+</body>
+</html>

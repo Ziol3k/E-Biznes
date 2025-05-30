@@ -149,13 +149,35 @@
       input.focus();
     }
 
-    function appendMsg(who, text) {
-      let bubble = document.createElement('div');
-      bubble.className = 'chat-bubble ' + who;
-      bubble.textContent = text;
-      chat.appendChild(bubble);
-      chat.scrollTop = chat.scrollHeight;
+function appendMsg(who, text, sentiment=null) {
+  let bubble = document.createElement('div');
+  bubble.className = 'chat-bubble ' + who;
+  bubble.textContent = text;
+
+  if (who === 'bot' && sentiment) {
+    let label = document.createElement('div');
+    label.style.fontSize = '0.9em';
+    label.style.marginTop = '4px';
+    label.style.fontWeight = 'bold';
+    label.style.display = 'inline-block';
+
+    if (sentiment === 'positive') {
+      label.textContent = 'Sentiment: Positive';
+      label.style.color = '#27ae60';
+    } else if (sentiment === 'negative') {
+      label.textContent = 'Sentiment: Negative';
+      label.style.color = '#e74c3c';
+    } else {
+      label.textContent = 'Sentiment: Neutral';
+      label.style.color = '#636e72';
     }
+    bubble.appendChild(document.createElement('br'));
+    bubble.appendChild(label);
+  }
+  chat.appendChild(bubble);
+  chat.scrollTop = chat.scrollHeight;
+}
+
 
     function isEnding(msg) {
       const endWords = [
@@ -208,7 +230,7 @@
         let data = await res.json();
         chat.removeChild(loading);
         if (data.response) {
-          appendMsg('bot', data.response.trim());
+          appendMsg('bot', data.response.trim(), data.sentiment || null);
         } else {
           appendMsg('bot', '[Error]: ' + (data.error || 'Unknown error'));
         }

@@ -9,6 +9,8 @@ from gensim.models import TfidfModel
 from gensim.corpora import Dictionary
 from scipy.spatial.distance import cosine
 
+from textblob import TextBlob
+
 OPENINGS = [
     "Welcome to our store! How can I help you today?",
     "Hello! What brings you to our shop?",
@@ -70,6 +72,16 @@ def is_shop_topic(message):
         return True
     return is_shop_topic_gensim(message)
 
+def analyze_sentiment(text):
+    blob = TextBlob(text)
+    polarity = blob.sentiment.polarity
+    if polarity > 0.1:
+        return "positive"
+    elif polarity < -0.1:
+        return "negative"
+    else:
+        return "neutral"
+
 app = FastAPI()
 
 app.add_middleware(
@@ -89,7 +101,10 @@ model = GPT4All("mistral-7b-instruct-v0.1.Q4_0.gguf")
 async def chat(user_message: UserMessage):
     try:
         if not is_shop_topic(user_message.message):
-            return {"response": "Sorry, I can only answer questions about our shop and clothes. Please ask about products, shopping, orders, or returns."}
+            return {
+                "response": "Sorry, I can only answer questions about our shop and clothes. Please ask about products, shopping, orders, or returns.",
+                "sentiment": "neutral"
+            }
         SYSTEM_PROMPT = (
             "You are a helpful assistant working in an online clothing store. "
             "You answer questions about products, orders, returns, sizes, colors, brands, "
@@ -98,10 +113,10 @@ async def chat(user_message: UserMessage):
         )
         prompt = SYSTEM_PROMPT + "User: " + user_message.message + "\nAssistant:"
         response = model.generate(prompt, max_tokens=200)
-        return {"response": response}
+        sentiment = analyze_sentiment(response)
+        return {"response": response, "sentiment": sentiment}
     except Exception as e:
-        return {"error": str(e)}
-
+        return {"error": str(e), "sentiment": "neutral"}
 
 @app.get("/opening")
 def get_opening():

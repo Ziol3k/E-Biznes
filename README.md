@@ -156,16 +156,21 @@ https://github.com/user-attachments/assets/92133d8c-ddf8-4fcb-988f-b5530ebe1efd
 
 ## Zadanie 8 Oauth2
 
-❌ 3.0 [logowanie przez aplikację serwerową (bez Oauth2)]()
+✅ 3.0 [logowanie przez aplikację serwerową (bez Oauth2)](https://github.com/Ziol3k/E-Biznes/commit/4337e75417d93af9d36bed72349c7063e5fd70aa)
 
-❌ 3.5 [rejestracja przez aplikację serwerową (bez Oauth2)]()
+✅ 3.5 [rejestracja przez aplikację serwerową (bez Oauth2)](https://github.com/Ziol3k/E-Biznes/commit/4337e75417d93af9d36bed72349c7063e5fd70aa)
 
-❌ 4.0  [logowanie via Google OAuth2]()
+✅ 4.0  [logowanie via Google OAuth2](https://github.com/Ziol3k/E-Biznes/commit/fbe136531177dac52bb7ca32b4f722fa5923fc33)
 
-❌ 4.5 [logowanie via Facebook lub Github OAuth2]()
+✅ 4.5 [logowanie via Facebook lub Github OAuth2](https://github.com/Ziol3k/E-Biznes/commit/777ed91e038010374f8e61b8cc5fe7b44cf58a4d)
 
-❌ 5.0 [zapisywanie danych logowania OAuth2 po stronie serwera]()
+✅ 5.0 [zapisywanie danych logowania OAuth2 po stronie serwera](https://github.com/Ziol3k/E-Biznes/commit/b7b584af442d015dbd43e6214f3689b8e5859439)
 
-[Kod:]()
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/oauth-app)
 
-[Demo]()
+[Demo](Demos/Demo_zadanie_8.mp4)
+
+
+https://github.com/user-attachments/assets/b9a6fba8-5146-4665-b20c-d00fb9a2bdb8
+
+

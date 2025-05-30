@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 
-beforeAll(() => {
+beforeEach(() => {
   global.fetch = jest.fn(() =>
     Promise.resolve({
       text: () => Promise.resolve("Hello from backend!"),
@@ -9,7 +9,7 @@ beforeAll(() => {
   );
 });
 
-afterAll(() => {
+afterEach(() => {
   global.fetch.mockRestore();
 });
 

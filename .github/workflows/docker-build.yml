@@ -92,3 +92,6 @@ jobs:
             Build na GitHub Actions zakończony sukcesem!
             Repozytorium: ${{ github.repository }}
             Commit: ${{ github.sha }}
+
+
+

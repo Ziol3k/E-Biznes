@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chatbot Sklepu – GPT4All</title>
+  <title>Store Chatbot – GPT4All</title>
   <style>
     body {
       background: #f5f6fa;
@@ -34,8 +34,37 @@
       padding: 18px 28px 8px 28px;
       overflow-y: auto;
       font-size: 1em;
+      display: flex;
+      flex-direction: column;
     }
-
+    .chat-bubble {
+      max-width: 88%;
+      margin-bottom: 12px;
+      padding: 10px 16px;
+      border-radius: 16px;
+      font-size: 1em;
+      word-break: break-word;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      display: inline-block;
+      line-height: 1.5;
+      clear: both;
+    }
+    .user {
+      align-self: flex-end;
+      background: #3787fc;
+      color: #fff;
+      border-bottom-right-radius: 6px;
+      margin-left: 12%;
+      text-align: right;
+    }
+    .bot {
+      align-self: flex-start;
+      background: #d3eafd;
+      color: #234;
+      border-bottom-left-radius: 6px;
+      margin-right: 12%;
+      text-align: left;
+    }
     .footer {
       padding: 18px 28px;
       background: #fafbff;
@@ -59,7 +88,7 @@
       background: #5f27cd;
       color: #fff;
       border: none;
-      padding: 0 22px;
+      padding: 0 18px;
       border-radius: 8px;
       font-size: 1em;
       font-weight: 500;
@@ -69,25 +98,56 @@
     button:hover {
       background: #3b187b;
     }
+    #close-btn {
+      background: #b6b6db;
+      color: #23275e;
+      font-weight: 600;
+      margin-left: 5px;
+      padding: 0 12px;
+    }
+    #close-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+    .loading {
+      font-style: italic;
+      color: #aaa;
+      font-size: 0.98em;
+      margin-bottom: 12px;
+    }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <div class="header">
-      Chatbot Sklepu – GPT4All
+      Store Chatbot – GPT4All
     </div>
-    <div id="chat" class="chat-area">
-    </div>
+    <div id="chat" class="chat-area"></div>
     <div class="footer">
-        <label for="input"></label><input id="input" type="text" placeholder="Napisz wiadomość..." autocomplete="off"
-                                          onkeydown="if(event.key==='Enter') sendMsg();">
-      <button onclick="sendMsg()">Wyślij</button>
+      <input id="input" type="text" placeholder="Type your message..." autocomplete="off"
+             onkeydown="if(event.key==='Enter') sendMsg();" />
+      <button onclick="sendMsg()" id="send-btn">Send</button>
+      <button onclick="closeChat()" id="close-btn">End Chat</button>
     </div>
   </div>
 
   <script>
     const chat = document.getElementById('chat');
     const input = document.getElementById('input');
+    const sendBtn = document.getElementById('send-btn');
+    const closeBtn = document.getElementById('close-btn');
+    let chatClosed = false;
+
+    window.onload = async function() {
+      try {
+        let res = await fetch('http://127.0.0.1:5000/opening');
+        let data = await res.json();
+        appendMsg('bot', data.opening);
+      } catch {
+        appendMsg('bot', 'Hello! (No connection to backend)');
+      }
+      input.focus();
+    }
 
     function appendMsg(who, text) {
       let bubble = document.createElement('div');
@@ -97,16 +157,45 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
+    function isEnding(msg) {
+      const endWords = [
+        'goodbye', 'thank you', 'thanks', 'bye', 'end', 'end chat', 'see you', 'farewell', 'cheers', 'cya'
+      ];
+      msg = msg.toLowerCase();
+      return endWords.some(word => msg.includes(word));
+    }
+
+    async function closeChat() {
+      if (chatClosed) return;
+      try {
+        let res = await fetch('http://127.0.0.1:5000/closing');
+        let data = await res.json();
+        appendMsg('bot', data.closing);
+      } catch {
+        appendMsg('bot', 'Thank you for chatting! (No connection to backend)');
+      }
+      input.disabled = true;
+      sendBtn.disabled = true;
+      closeBtn.disabled = true;
+      chatClosed = true;
+    }
+
     async function sendMsg() {
+      if (chatClosed) return;
       let msg = input.value.trim();
       if (!msg) return;
       appendMsg('user', msg);
       input.value = '';
       input.focus();
 
+      if (isEnding(msg)) {
+        await closeChat();
+        return;
+      }
+
       let loading = document.createElement('div');
       loading.className = 'loading';
-      loading.textContent = 'Bot pisze...';
+      loading.textContent = 'Bot is typing...';
       chat.appendChild(loading);
       chat.scrollTop = chat.scrollHeight;
 
@@ -121,11 +210,11 @@
         if (data.response) {
           appendMsg('bot', data.response.trim());
         } else {
-          appendMsg('bot', '[Błąd]: ' + (data.error || 'Nieznany błąd'));
+          appendMsg('bot', '[Error]: ' + (data.error || 'Unknown error'));
         }
       } catch (e) {
         chat.removeChild(loading);
-        appendMsg('bot', '[Błąd połączenia z backendem]');
+        appendMsg('bot', '[Connection error with backend]');
       }
     }
   </script>

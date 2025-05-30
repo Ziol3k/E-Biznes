@@ -39,13 +39,13 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-app:latest
 
       - name: Send notification email
-        uses: mendel/mail@v1
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.MAIL_SERVER }}
           server_port: ${{ secrets.MAIL_PORT }}
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "✅ Build zakończony"
+          subject: "✅ Build zakończony!"
           to: ${{ secrets.MAIL_TO }}
           from: ${{ secrets.MAIL_USERNAME }}
           body: |

@@ -37,3 +37,18 @@ jobs:
           file: ./Chmura/frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-app:latest
+
+      - name: Send notification email
+        uses: mendel/mail@v1
+        with:
+          server_address: ${{ secrets.MAIL_SERVER }}
+          server_port: ${{ secrets.MAIL_PORT }}
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "✅ Build zakończony"
+          to: ${{ secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_USERNAME }}
+          body: |
+            Build na GitHub Actions zakończony sukcesem!
+            Repozytorium: ${{ github.repository }}
+            Commit: ${{ github.sha }}

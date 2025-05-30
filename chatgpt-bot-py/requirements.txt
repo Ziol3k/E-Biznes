@@ -6,3 +6,5 @@ textblob
 
 pydantic~=2.11.5
 gpt4all~=2.8.2
+gensim~=4.3.3
+scipy~=1.13.1

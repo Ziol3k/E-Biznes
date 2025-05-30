@@ -4,10 +4,11 @@ function App() {
   const [msg, setMsg] = useState("");
 
   const fetchMsg = async () => {
-    const res = await fetch("/api/hello");
+    const res = await fetch("https://backend-app-203544414568.europe-central2.run.app/api/hello");
     const text = await res.text();
     setMsg(text);
   };
+
 
   return (
     <div style={{ maxWidth: 400, margin: "100px auto", padding: 24, borderRadius: 8, boxShadow: "0 0 10px #eee", textAlign: "center" }}>

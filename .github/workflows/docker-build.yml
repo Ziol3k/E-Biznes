@@ -38,6 +38,31 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-app:latest
 
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: chmura-demo
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Deploy backend to Cloud Run
+        run: |
+          gcloud run deploy backend-app \
+            --image=ziol3k/backend-app:latest \
+            --region=europe-central2 \
+            --platform=managed \
+            --allow-unauthenticated \
+            --project=chmura-demo
+
+      - name: Deploy frontend to Cloud Run
+        run: |
+          gcloud run deploy frontend-app \
+            --image=ziol3k/frontend-app:latest \
+            --region=europe-central2 \
+            --platform=managed \
+            --allow-unauthenticated \
+            --project=chmura-demo
+
       - name: Send notification email
         uses: dawidd6/action-send-mail@v3
         with:

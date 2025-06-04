@@ -174,3 +174,62 @@ https://github.com/user-attachments/assets/92133d8c-ddf8-4fcb-988f-b5530ebe1efd
 https://github.com/user-attachments/assets/b9a6fba8-5146-4665-b20c-d00fb9a2bdb8
 
 
+## Zadanie 9 ChatGPT bot
+
+✅ 3.0 [ należy stworzyć po stronie serwerowej osobny serwis do łącznia z chatGPT do usługi chat](https://github.com/Ziol3k/E-Biznes/commit/700ae7c6cc882368ebbccebc52e8bd74a83be5f3)
+
+✅ 3.5 [należy stworzyć interfejs frontowy dla użytkownika, który komunikuje się z serwisem; odpowiedzi powinny być wysyałen do frontendowego interfejsu](https://github.com/Ziol3k/E-Biznes/commit/ac9eb258a0e75c9ad6632147ef32afae935c8624)
+
+✅ 4.0 [stworzyć listę 5 różnych otwarć oraz zamknięć rozmowy](https://github.com/Ziol3k/E-Biznes/commit/8b31686c5132a67f3d5ee9ff4c5bc1b93732b148)
+
+✅ 4.5 [filtrowanie po zagadnieniach związanych ze sklepem (np. ograniczenie się jedynie do ubrań oraz samego sklepu) do GPT](https://github.com/Ziol3k/E-Biznes/commit/92a4f8a2d47bf44b942524546013c429b562e530)
+
+✅ 5.0 [filtrowanie odpowiedzi po sentymencie](https://github.com/Ziol3k/E-Biznes/commit/c0be55a8c12a1fa559e2a4362b3d32eee45d02e3)
+
+
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/chatgpt-bot-py)
+
+[Demo](Demos/Demo_zadanie_9.mp4)
+
+
+
+https://github.com/user-attachments/assets/971560e8-3946-45f5-8496-c7eb728aa2ff
+
+
+
+
+
+## Zadanie 10 Chmura/CI
+
+✅ 3.0 [Należy stworzyć odpowiednie instancje po stronie chmury na dockerze](https://github.com/Ziol3k/E-Biznes/commit/8720f5d3bfa0134aad4ec48d0835068bb9e347bb)
+
+✅ 3.5 [Stworzyć odpowiedni pipeline w Github Actions do budowania aplikacji (np. via fatjar)](https://github.com/Ziol3k/E-Biznes/commit/e3225b8ab7d877518d0693ff02ab7ebe00d1fb50)
+
+[Commit 2](https://github.com/Ziol3k/E-Biznes/commit/7a49b785c13867c3ae788b21b1e78f2c533899bf)
+
+✅ 4.0 [Dodać notyfikację mailową o zbudowaniu aplikacji](https://github.com/Ziol3k/E-Biznes/commit/67c251478b5d3f0bd932a06c71bb949f595e3ade)
+
+[Commit 2](https://github.com/Ziol3k/E-Biznes/commit/753a9dd76ba36847c329a17130bd1e477ca9c17f)
+
+✅ 4.5 [Dodać krok z deploymentem aplikacji serwerowej oraz klienckiej na chmurę](https://github.com/Ziol3k/E-Biznes/commit/b512afdca8d8ca4bfa0419e9db5533f80370842b)
+
+[Commit 2](https://github.com/Ziol3k/E-Biznes/commit/cd6aed7546663aace70f7a638a3d347f47556394)
+
+[Commit 3](https://github.com/Ziol3k/E-Biznes/commit/f4b0ffc448ef8625ea02598c32de77182832fe6e)
+
+✅ 5.0 [Dodać uruchomienie regresyjnych testów automatycznych (funkcjonalnych) jako krok w Actions](https://github.com/Ziol3k/E-Biznes/commit/f6f74897e2880b190b48bc3e791c692433330290)
+
+[Commit 2](https://github.com/Ziol3k/E-Biznes/commit/33c399f62df545a7b87803d216e78c69e09266b0)
+
+
+[Kod:](https://github.com/Ziol3k/E-Biznes/tree/master/Chmura)
+
+[Plik z pipelinem](https://github.com/Ziol3k/E-Biznes/blob/master/.github/workflows/docker-build.yml)
+
+[Demo](Demos/Demo_zadanie_10.mp4)
+
+
+
+
+https://github.com/user-attachments/assets/6480dc29-ef05-4985-8fc4-5cffb06ff144
+
